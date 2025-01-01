@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pvc-pod-deployment
+  labels:
+    app: pvc-pod
+spec:
+  replicas: 2  # Number of replicas (adjust as needed)
+  selector:
+    matchLabels:
+      app: pvc-pod
+  template:
+    metadata:
+      labels:
+        app: pvc-pod
+    spec:
+      containers:
+        - name: pvc-pod-container
+          image: nginx:latest
+          volumeMounts:
+            - mountPath: /data
+              name: data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: demo-pvc
