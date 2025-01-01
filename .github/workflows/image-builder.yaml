@@ -39,7 +39,7 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/my-image-name:${{ env.image_tag }} .
 
-      - name: Push Docker Image
+      - name: Push Docker Image 
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/my-image-name:${{ env.image_tag }}
 
