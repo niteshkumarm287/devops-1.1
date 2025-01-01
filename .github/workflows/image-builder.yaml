@@ -29,7 +29,7 @@ jobs:
         run: |
           # Generate timestamps and image SHA
           TIMESTAMP=$(date -u +"%Y-%m-%dT%H-%M-%S")
-          IMAGE_SHA=$(docker image inspect --format '{{.Id}}' $(docker build -q .) | cut -d ':' -f2 | head -1)
+          IMAGE_SHA=$(docker image inspect --format '{{.Id}}' $(docker build -q simple_python_app/) | cut -d ':' -f2 | head -1)
 
           # Generate the full image tag
           IMAGE_TAG="version-git-${GITHUB_ENV_sha}-image-${IMAGE_SHA}-${TIMESTAMP}"
@@ -37,9 +37,9 @@ jobs:
 
       - name: Tag Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/my-image-name:${{ env.image_tag }} .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/my-image-name:${{ env.image_tag }} simple_python_app/
 
-      - name: Push Docker Image 
+      - name: Push Docker Image
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/my-image-name:${{ env.image_tag }}
 
