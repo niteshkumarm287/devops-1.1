@@ -19,4 +19,4 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: nitesh287/my-image-name
+        image: nitesh287/my-image-name:v1
