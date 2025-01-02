@@ -4,10 +4,13 @@ metadata:
   name: my-app
   namespace: prod
   annotations:
+    # This is the name of the image you want to track
     argocd-image-updater.argoproj.io/image-list: nitesh287/my-image-name
+    # Write-back method to update the GitHub repository
     argocd-image-updater.argoproj.io/write-back-method: git
     argocd-image-updater.argoproj.io/write-back-target: branch:main  # Specify the target branch to commit the changes
-    argocd-image-updater.argoproj.io/my-app.update-strategy: latest  # Update the deployment with the latest image tag
+    # Update strategy, always use the latest tag
+    argocd-image-updater.argoproj.io/my-app.update-strategy: latest
 spec:
   replicas: 2
   selector:
@@ -20,5 +23,5 @@ spec:
     spec:
       containers:
       - name: my-app
-        # Dynamic image tag which will be updated by ArgoCD Image Updater
-        image: nitesh287/my-image-name:{{ argocd-image-updater.argoproj.io.latest-image-tag }}
+        # Only the image name, ArgoCD Image Updater will dynamically update the tag
+        image: nitesh287/my-image-name
