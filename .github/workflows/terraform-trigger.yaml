@@ -28,7 +28,7 @@ jobs:
         with:
           terraform_version: 1.10.0
 
-      - name: Terraform Init
+      - name: Terraform Init 
         run: cd resource-creation-using-tf && terraform init 
 
       - name: Terraform Plan
