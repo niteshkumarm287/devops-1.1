@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: my-app
-  namespace: default
+  namespace: prod
   annotations:
     argocd-image-updater.argoproj.io/image-list: nitesh287/my-image-name
     argocd-image-updater.argoproj.io/write-back-method: git
