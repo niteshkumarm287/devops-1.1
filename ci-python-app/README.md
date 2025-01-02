@@ -5,7 +5,7 @@
 
 ## Overview
 
-This repository contains a FastAPI-based application showcasing a modern login page. The project integrates with Docker, a CI/CD pipeline using GitHub Actions (GHA), and Google Cloud Artifact Registry (GCR) for seamless deployment.
+This repository contains a FastAPI-based application showcasing a modern login page. The project integrates with Docker, a CI pipeline using GitHub Actions (GHA), and Google Cloud Artifact Registry (GCR) for seamless deployment.
 
 ---
 
