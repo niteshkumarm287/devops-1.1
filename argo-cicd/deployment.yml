@@ -6,6 +6,7 @@ metadata:
   annotations:
     argocd-image-updater.argoproj.io/image-list: nitesh287/my-image-name
     argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/my-app.tag-regex: ^v1\..*
 spec:
   replicas: 2
   selector:
@@ -18,4 +19,4 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: nitesh287/my-image-name:latest
+        image: nitesh287/my-image-name:placeholder
