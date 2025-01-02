@@ -32,7 +32,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t us-central1-docker.pkg.dev/nitesh-gcp-444718/simple-application/my-image:latest simple_python_app/
+        docker build -t us-central1-docker.pkg.dev/nitesh-gcp-444718/simple-application/my-image:latest cicd-python-app/
 
     - name: Push Docker image to Artifact Registry
       run: |
