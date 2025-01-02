@@ -152,6 +152,13 @@ The GitHub Actions pipeline is configured to:
 ## License 📜
 This project is licensed under the MIT License.  
 
+---
+
+## 🏆 Credits
+This project was inspired by and incorporates elements from [fastapi](https://github.com/docker/awesome-compose/tree/master/fastapi), which has been generously made available under the CC0 1.0 Universal License.
+
+Under this license, the authors have waived all copyright and related rights to the work to the fullest extent permitted by law. We are deeply grateful for their contribution to the open-source community. For details on the license, please visit CC0 1.0 Universal.
+
 ---  
 
 Feel free to extend or modify based on your deployment needs. Happy coding! 🎉
