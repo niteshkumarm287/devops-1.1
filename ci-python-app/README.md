@@ -25,28 +25,6 @@ cicd-python-app/
 
 ---
 
-## Features ✨
-
-1. **Interactive Login Page**:  
-   - A visually appealing login form with responsive design and animations.
-
-2. **FastAPI Backend**:  
-   - Serves the dynamic login page at the root endpoint (`/`).
-
-3. **Dockerized Application**:  
-   - Multi-stage Dockerfile ensures lightweight, production-ready images.
-
-4. **CI/CD Pipeline**:  
-   - Automated Docker image builds and pushes to Google Artifact Registry using GitHub Actions.
-
-5. **Docker Compose Support**:  
-   - Simplifies local development with container orchestration and port mapping.
-
-6. **Google Cloud Integration**:  
-   - Fully compatible with Google Cloud services, enabling streamlined deployment workflows.
-
----
-
 ## Prerequisites 🔧
 
 1. **Google Cloud Setup**:
@@ -141,16 +119,33 @@ The GitHub Actions pipeline is configured to:
 
 ---
 
+## Features ✨
+
+1. **Interactive Login Page**:  
+   - A visually appealing login form with responsive design and animations.
+
+2. **FastAPI Backend**:  
+   - Serves the dynamic login page at the root endpoint (`/`).
+
+3. **Dockerized Application**:  
+   - Multi-stage Dockerfile ensures lightweight, production-ready images.
+
+4. **CI/CD Pipeline**:  
+   - Automated Docker image builds and pushes to Google Artifact Registry using GitHub Actions.
+
+5. **Docker Compose Support**:  
+   - Simplifies local development with container orchestration and port mapping.
+
+6. **Google Cloud Integration**:  
+   - Fully compatible with Google Cloud services, enabling streamlined deployment workflows.
+
+---
+
 ## Future Enhancements 🚀
 
 - Add endpoints for user authentication and database integration (e.g., Cloud SQL).
 - Implement a Helm chart for Kubernetes deployment.
 - Secure API using OAuth or JWT.
-
----
-
-## License 📜
-This project is licensed under the MIT License.  
 
 ---
 
