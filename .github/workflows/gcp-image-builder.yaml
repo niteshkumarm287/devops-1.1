@@ -3,12 +3,10 @@ name: Push Docker Image to Artifactory
 on:
   push:
     branches:
-      - main  # Trigger only on pushes to the 'main' branch
-    paths:
-      - 'simple-python_app/**'  # Trigger only when files in the 'simple-python_app' directory change
+      - main
 
 jobs:
-  build_and_push:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
