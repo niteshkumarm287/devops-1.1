@@ -2,11 +2,8 @@ name: Push Docker Image to Artifactory
 
 on:
   push:
-    branches:
-      - simple_python_app  # Trigger on push to the 'simple_python_app' branch
     paths:
-      - 'Dockerfile'
-      - '**/*.py'  # or any other files that you want to trigger the build
+      - 'simple-python_app/**'
 
 jobs:
   build_and_push:
