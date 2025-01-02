@@ -1,0 +1,40 @@
+name: Terraform GCP Setup
+
+on:
+  push:
+    paths:
+      - 'resource-creation-using-tf/**'  # Trigger on changes within the 'resource-creation-using-tf' folder
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Authenticate to GCP using Workload Identity Federation
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v1
+        with:
+          workload_identity_provider: "projects/1091294306406/locations/global/workloadIdentityPools/github-gha/providers/github"
+          service_account: "gha-sa@nitesh-gcp-444718.iam.gserviceaccount.com"
+
+      # Step 3: Set up Terraform
+      - name: Setup Terraform 
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.10.0
+
+      # Step 4: Terraform Init
+      - name: Terraform Init
+        run: terraform init
+
+      # Step 5: Terraform Plan
+      - name: Terraform Plan
+        run: terraform plan -var-file="terraform.tfvars"
