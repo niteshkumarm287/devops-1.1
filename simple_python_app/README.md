@@ -3,7 +3,7 @@
 
 ## 📝 Overview
 
-This guide explains how to deploy a simple Flask application on **Google Kubernetes Engine (GKE)** and expose it to the public using a 🌐 Load Balancer Service. 
+This guide explains how to deploy a simple Flask application on **Google Kubernetes Engine (GKE)** and expose it to the public using a 🌐 Load Balancer Service.
 
 ---
 
