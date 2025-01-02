@@ -18,4 +18,4 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: nitesh287/my-image-name:version-git--image-15f5e401085dd7420f94f1ee61d49fb54768adde2dfdc090ab78826002ff5522-2025-01-01T02-55-57
+        image: nitesh287/my-image-name:v1*
