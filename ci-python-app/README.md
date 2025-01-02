@@ -1,5 +1,5 @@
 
-# Login Page with FastAPI, Docker, and CI/CD 🚀
+# Login Page with FastAPI, Docker, and CI 🚀
 
 ---
 
@@ -12,15 +12,13 @@ This repository contains a FastAPI-based application showcasing a modern login p
 ### Project Structure 📁
 
 ```
-cicd-python-app/
+ci-python-app/
 ├── app/
 │   ├── main.py            # FastAPI application with login page
-│   └── requirements.txt   # Python dependencies
+│   └── __init__.py   
 ├── Dockerfile             # Multi-stage Dockerfile for building the FastAPI app
 ├── compose.yml            # Docker Compose configuration
-├── .github/
-│   └── workflows/
-│       └── gha.yml        # GitHub Actions pipeline for CI/CD
+├── requirements.txt   # Python dependencies
 ```
 
 ---
