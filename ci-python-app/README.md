@@ -91,7 +91,7 @@ ci-python-app/
 
 ---
 
-### 4. CI/CD Workflow with GitHub Actions ⚡
+### 4. CI Workflow with GitHub Actions ⚡
 
 The GitHub Actions pipeline is configured to:
 1. Build the Docker image upon pushing changes to the `main` branch.
