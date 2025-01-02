@@ -3,7 +3,7 @@ name: Terraform GCP Setup
 on:
   push:
     paths:
-      - 'resource-creation-using-tf/**'  # Trigger on changes within the 'resource-creation-using-tf' folder
+      - 'resource-creation-using-tf/**'
 
 jobs:
   terraform:
