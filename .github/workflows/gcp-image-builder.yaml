@@ -1,0 +1,38 @@
+name: Push Docker Image to Artifactory
+
+on:
+  push:
+    branches:
+      - simple_python_app  # Trigger on push to the 'simple_python_app' branch
+    paths:
+      - 'Dockerfile'
+      - '**/*.py'  # or any other files that you want to trigger the build
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v2
+
+    - name: Authenticate to Google Cloud using Workload Identity Federation
+      uses: google-github-actions/auth@v0
+      with:
+        workload_identity_provider: "projects/1091294306406/locations/global/workloadIdentityPools/github-gha/providers/github"
+        service_account: "gha-sa@nitesh-gcp-444718.iam.gserviceaccount.com"
+    
+    - name: Configure Docker for Google Cloud
+      run: |
+        gcloud auth configure-docker us-central1-docker.pkg.dev
+
+    - name: Build Docker image
+      run: |
+        docker build -t us-central1-docker.pkg.dev/nitesh-gcp-444718/my-repo/my-image:latest .
+
+    - name: Push Docker image to Artifact Registry
+      run: |
+        docker push us-central1-docker.pkg.dev/nitesh-gcp-444718/my-repo/my-image:latest
