@@ -4,4 +4,3 @@ resource "google_container_cluster" "primary" {
   initial_node_count = var.initial_node_count
   deletion_protection = false
 }
-
