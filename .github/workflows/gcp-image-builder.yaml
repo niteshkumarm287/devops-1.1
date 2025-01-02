@@ -3,7 +3,7 @@ name: Push Docker Image to Artifactory
 on:
   push:
     branches:
-      - simple_python_app  # Trigger only on pushes to the 'simple_python_app' branch
+      - main  # Trigger only on pushes to the 'main' branch
     paths:
       - 'simple-python_app/**'  # Trigger only when files in the 'simple-python_app' directory change
 
