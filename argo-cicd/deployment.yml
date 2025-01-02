@@ -3,14 +3,6 @@ kind: Deployment
 metadata:
   name: my-app
   namespace: prod
-  annotations:
-    # Track the image you want to update
-    argocd-image-updater.argoproj.io/image-list: nitesh287/my-image-name
-    # Specify the write-back method and target GitHub branch
-    argocd-image-updater.argoproj.io/write-back-method: git
-    argocd-image-updater.argoproj.io/write-back-target: branch:main
-    # Update strategy - here we're always using the latest tag from the registry
-    argocd-image-updater.argoproj.io/my-app.update-strategy: latest
 spec:
   replicas: 2
   selector:
