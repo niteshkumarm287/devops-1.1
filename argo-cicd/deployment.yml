@@ -18,4 +18,4 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: mydockerhubuser/myapp:*
+        image: mydockerhubuser/myapp:v1-git--image-29758df89526a4f0b95f606b619b5202f6ceb89f9aa19fffa0ee50dbd6fd9d42-2025-01-01T03-01-18
