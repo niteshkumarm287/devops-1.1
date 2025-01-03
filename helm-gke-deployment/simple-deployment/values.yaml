@@ -1,15 +1,15 @@
 replicaCount: 2
 
 image:
-  repository: my-fastapi-image-1
+  repository: nitesh287/my-fastapi-image-1
   tag: "12597977546"
   pullPolicy: IfNotPresent
 
 podLabels:
-  app: pvc-pod
+  app: simple-deployment
 
 service:
   type: ClusterIP
   port: 80
   targetPort: 80
-  name: pvc-pod-service
+  name: simple-deployment-service
