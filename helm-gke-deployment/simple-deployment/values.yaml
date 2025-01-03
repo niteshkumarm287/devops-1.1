@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: nginx
+  repository: nitesh287/fastapi
   tag: "12597977546"
   pullPolicy: IfNotPresent
 

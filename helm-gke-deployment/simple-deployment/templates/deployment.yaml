@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Chart.Name }}-deployment
+  name: {{ .Chart.Name }}
   labels:
     app: {{ .Values.podLabels.app }}
 spec:
@@ -15,6 +15,6 @@ spec:
         app: {{ .Values.podLabels.app }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}-container
+        - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}

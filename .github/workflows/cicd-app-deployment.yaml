@@ -29,10 +29,10 @@ jobs:
       - name: Build and Push action
         uses: docker/build-push-action@v6
         with:
-          context: ./simple_python_app/
-          file: ./simple_python_app/Dockerfile
+          context: ./cicd-python-app/
+          file: ./cicd-python-app/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/my-image-1:${{github.run_id}}
+          tags: ${{ secrets.DOCKER_USERNAME }}/my-fastapi-image-1:${{github.run_id}}
 
   update-newtag-in-helm-chart:
       runs-on: ubuntu-latest
@@ -52,6 +52,7 @@ jobs:
         run: |
           git config --global user.email "kumarmnitesh@gmail.com"
           git config --global user.name "niteshkumarm287"
+          git pull
           git add helm-gke-deployment/simple-deployment/values.yaml
           git commit -m "Update tag in Helm chart"
           git push
