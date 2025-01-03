@@ -27,7 +27,7 @@ jobs:
        
       - name: Extracting commit SHA 
         run: |
-          COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-c7)
+          COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
           echo "Commit SHA: ${COMMIT_SHA}"
 
 
