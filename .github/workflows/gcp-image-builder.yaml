@@ -44,16 +44,21 @@ jobs:
         env:
           CLOUDSDK_CORE_PROJECT: ${{ secrets.GCP_PROJECT }}
 
-      - name: Spin up a cluster
+      - name: Connecting to cluster and configure kubectl
         run: |
           CLUSTER_NAME="my-gke-cluster"
           ZONE="us-central1-a"
           PROJECT="nitesh-gcp-444718"
 
+          # Authenticate to GKE
           gcloud container clusters get-credentials $CLUSTER_NAME --zone $ZONE --project $PROJECT
+
+          # Set kubectl to use gcloud as a credential helper
+          kubectl config set-credentials gke_auth --auth-provider=gcp
 
       - name: Restart deployment
         run: |
           DEPLOYMENT_NAME="deployment-1"
           NAMESPACE="simple-app"
           kubectl rollout restart deployment "$DEPLOYMENT_NAME" -n "$NAMESPACE"
+
