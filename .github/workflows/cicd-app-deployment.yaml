@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'simple_python_app/**'
+      - 'cicd-python-app/**'
 
 
 jobs:
