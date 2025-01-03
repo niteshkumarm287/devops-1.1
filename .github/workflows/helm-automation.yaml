@@ -31,7 +31,7 @@ jobs:
 
       - name: Package Helm Chart
         run: |
-          cd ./chart-directory
+          cd ./helm-gke-deployment
           helm package . --destination ../packages
           ls -l ../packages
 
