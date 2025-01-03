@@ -37,7 +37,7 @@ jobs:
           context: ./cicd-python-app/
           file: ./cicd-python-app/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/my-fastapi-image-1:$COMMIT_SHA
+          tags: ${{ secrets.DOCKER_USERNAME }}/my-fastapi-image-1:${COMMIT_SHA}
 
   update-newtag-in-helm-chart:
       runs-on: ubuntu-latest
@@ -51,7 +51,7 @@ jobs:
 
       - name: Update tag in Helm chart
         run: |
-          sed -i 's/tag: .*/tag: "$COMMIT_SHA"/' helm-gke-deployment/simple-deployment/values.yaml
+          sed -i 's/tag: .*/tag: "${COMMIT_SHA}"/' helm-gke-deployment/simple-deployment/values.yaml
 
       - name: Commit and push changes
         run: |
