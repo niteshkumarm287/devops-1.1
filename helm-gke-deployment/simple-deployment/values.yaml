@@ -1,0 +1,15 @@
+replicaCount: 2
+
+image:
+  repository: nginx
+  tag: latest
+  pullPolicy: IfNotPresent
+
+podLabels:
+  app: pvc-pod
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+  name: pvc-pod-service
