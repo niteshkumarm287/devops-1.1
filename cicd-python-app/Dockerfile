@@ -17,4 +17,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends git
 RUN useradd -s /bin/bash -m vscode && groupadd docker && usermod -aG docker vscode
 
 # install Docker tools (cli, buildx, compose)
-COPY --from=gloursdocker/docker / / 
+COPY --from=gloursdocker/docker / /
