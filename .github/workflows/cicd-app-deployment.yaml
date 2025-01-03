@@ -1,7 +1,7 @@
 name: Build and Push Docker Image
 
 on:
-  push:
+  pull_request:
     branches:
       - main
     paths:
@@ -54,3 +54,12 @@ jobs:
           git add helm-gke-deployment/simple-deployment/values.yaml
           git commit -m "Update tag in Helm chart"
           git push
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          title: "Update Helm chart tag"
+          body: "This PR updates the Helm chart tag to the new commit SHA."
+          base: main  # Change this to your target branch if different
+          branch: update-helm-tag-${{ github.sha }}
+          token: ${{ secrets.TOKEN }}
