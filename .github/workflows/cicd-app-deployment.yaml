@@ -28,11 +28,8 @@ jobs:
       - name: Build and Push action
         uses: docker/build-push-action@v6
           COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
-        with:
-          context: ./cicd-python-app/
-          file: ./cicd-python-app/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/my-fastapi-image-1:${COMMIT_SHA }
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/my-fastapi-image-1:${COMMIT_SHA} cicd-python-app/
+          docker images
 
   update-newtag-in-helm-chart:
       runs-on: ubuntu-latest
