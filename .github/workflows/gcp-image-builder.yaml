@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Check out the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
@@ -25,7 +25,7 @@ jobs:
         with:
           workload_identity_provider: "projects/1091294306406/locations/global/workloadIdentityPools/github-gha/providers/github"
           service_account: "gha-sa@nitesh-gcp-444718.iam.gserviceaccount.com"
-      
+
       - name: Configure Docker for Google Cloud
         run: |
           gcloud auth configure-docker us-central1-docker.pkg.dev
@@ -42,16 +42,14 @@ jobs:
         run: |
           # Add Google Cloud SDK repository and install the required plugin
           echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-          
+
           # Import the missing GPG key
           curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo tee /usr/share/keyrings/cloud.google.gpg
-          
+
           # Update apt and install required components
           sudo apt-get update
           sudo apt-get install -y google-cloud-sdk
           gcloud components install gke-gcloud-auth-plugin
-        env:
-          CLOUDSDK_CORE_PROJECT: ${{ secrets.GCP_PROJECT }}
 
       - name: Connecting to cluster and configure kubectl
         run: |
