@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: nginx
-  tag: "12597899265"
+  tag: "12597907966"
   pullPolicy: IfNotPresent
 
 podLabels:
