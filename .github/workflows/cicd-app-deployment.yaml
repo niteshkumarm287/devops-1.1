@@ -58,7 +58,7 @@ jobs:
           git checkout -b update-helm-tag-${{ github.sha }}  # Create a new branch
           git add helm-gke-deployment/simple-deployment/values.yaml
           git commit -m "Update tag in Helm chart"
-          git push orign update-helm-tag-${{ github.sha }}  # Push to the new branch
+          git push --set-upstream orign update-helm-tag-${{ github.sha }}  --no-verify  # Push to the new branch
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
