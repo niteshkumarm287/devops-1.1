@@ -31,10 +31,4 @@ jobs:
 
       - name: Package Helm Chart
         run: |
-          cd ./helm-gke-deployment/simple-deployment
-          helm package .
-          ls -l
-
-      - name: Push Helm Chart to Artifact Registry
-        run: |
-          helm push ./helm-gke-deployment/simple-deployment/simple-deployment-*.tgz oci://us-central1-docker.pkg.dev/nitesh-gcp-444718/simple-application
+          gcloud artifacts repositories list --project=nitesh-gcp-444718
