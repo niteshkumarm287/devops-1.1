@@ -32,10 +32,9 @@ jobs:
       - name: Package Helm Chart
         run: |
           cd ./helm-gke-deployment/simple-deployment
-          helm package . --destination ../packages
-          ls -l ../packages
+          helm package .
+          ls -l
 
       - name: Push Helm Chart to Artifact Registry
         run: |
-          cd ../packages
-          helm push simple-deployment-1.0.0.tgz oci://us-central1-docker.pkg.dev/nitesh-gcp-444718/simple-application
+          helm push ./helm-gke-deployment/simple-deployment/simple-deployment-*.tgz oci://us-central1-docker.pkg.dev/nitesh-gcp-444718/simple-application
