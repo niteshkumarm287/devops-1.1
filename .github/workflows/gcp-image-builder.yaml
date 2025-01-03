@@ -40,7 +40,12 @@ jobs:
 
       - name: Install gke-gcloud-auth-plugin
         run: |
-          sudo apt-get update && sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
+          # Add Google Cloud SDK repository and install the required plugin
+          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo tee /usr/share/keyrings/cloud.google.gpg
+          sudo apt-get update
+          sudo apt-get install -y google-cloud-sdk
+          gcloud components install gke-gcloud-auth-plugin
         env:
           CLOUDSDK_CORE_PROJECT: ${{ secrets.GCP_PROJECT }}
 
@@ -61,4 +66,3 @@ jobs:
           DEPLOYMENT_NAME="deployment-1"
           NAMESPACE="simple-app"
           kubectl rollout restart deployment "$DEPLOYMENT_NAME" -n "$NAMESPACE"
-
