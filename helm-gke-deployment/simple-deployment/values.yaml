@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: nitesh287/my-fastapi-image-1
-  tag: "12598445213"
+  tag: "e63868118bffc5189d3b0788a93c6ac7aeb5fce4"
   pullPolicy: IfNotPresent
 
 podLabels:
