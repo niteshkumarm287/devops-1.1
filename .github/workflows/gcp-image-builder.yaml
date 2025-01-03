@@ -37,3 +37,17 @@ jobs:
     - name: Push Docker image to Artifact Registry
       run: |
         docker push us-central1-docker.pkg.dev/nitesh-gcp-444718/simple-application/my-image:latest
+
+    - name: spinning up a cluster 
+      run: |
+        CLUSTER_NAME="my-gke-cluster"
+        ZONE="us-central1-a"
+        PROJECT="nitesh-gcp-444718"
+
+        gcloud container clusters get-credentials $CLUSTER_NAME --zone $ZONE --project $PROJECT
+
+    - name: restart deployment
+      run: |
+        DEPLOYMENT_NAME="deployment-1"
+        NAMESPACE="simple-app"
+        kubectl rollout restart deployment "$DEPLOYMENT_NAME" -n "$NAMESPACE"
