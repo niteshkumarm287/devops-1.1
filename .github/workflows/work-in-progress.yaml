@@ -1,0 +1,38 @@
+name: Delete GKE Deployment
+
+on:
+  workflow_dispatch:  # This will allow manual trigger of the workflow
+
+jobs:
+  delete-deployment:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+
+      - name: Authenticate to GCP using Workload Identity Federation
+        uses: google-github-actions/auth@v1
+        with:
+          workload_identity_provider: "projects/1091294306406/locations/global/workloadIdentityPools/github-gha/providers/github"
+          service_account: "gha-sa@nitesh-gcp-444718.iam.gserviceaccount.com"
+
+      - name: Connect to GKE Cluster and Delete Deployment
+        run: |
+          # Set environment variables for GKE connection
+          CLUSTER_NAME="my-gke-cluster"
+          ZONE="us-central1-a"
+          PROJECT="nitesh-gcp-444718"
+          DEPLOYMENT_NAME="deployment-1"
+          NAMESPACE="simple-app"
+
+          # Authenticate to GKE
+          gcloud container clusters get-credentials $CLUSTER_NAME --zone $ZONE --project $PROJECT
+
+          # Delete the deployment in the specified namespace
+          kubectl delete deployment $DEPLOYMENT_NAME -n $NAMESPACE
+
