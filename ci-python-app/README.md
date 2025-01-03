@@ -1,26 +1,24 @@
 
-# Login Page with FastAPI, Docker, and CI/CD 🚀
+# Login Page with FastAPI, Docker, and CI 🚀
 
 ---
 
 ## Overview
 
-This repository contains a FastAPI-based application showcasing a modern login page. The project integrates with Docker, a CI/CD pipeline using GitHub Actions (GHA), and Google Cloud Artifact Registry (GCR) for seamless deployment.
+This repository contains a FastAPI-based application showcasing a modern login page. The project integrates with Docker, a CI pipeline using GitHub Actions (GHA), and Google Cloud Artifact Registry (GCR) for seamless deployment.
 
 ---
 
 ### Project Structure 📁
 
 ```
-cicd-python-app/
+ci-python-app/
 ├── app/
 │   ├── main.py            # FastAPI application with login page
-│   └── requirements.txt   # Python dependencies
+│   └── __init__.py   
 ├── Dockerfile             # Multi-stage Dockerfile for building the FastAPI app
 ├── compose.yml            # Docker Compose configuration
-├── .github/
-│   └── workflows/
-│       └── gha.yml        # GitHub Actions pipeline for CI/CD
+├── requirements.txt   # Python dependencies
 ```
 
 ---
@@ -93,7 +91,7 @@ cicd-python-app/
 
 ---
 
-### 4. CI/CD Workflow with GitHub Actions ⚡
+### 4. CI Workflow with GitHub Actions ⚡
 
 The GitHub Actions pipeline is configured to:
 1. Build the Docker image upon pushing changes to the `main` branch.
