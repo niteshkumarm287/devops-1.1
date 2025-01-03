@@ -48,7 +48,14 @@ jobs:
       - name: Update tag in Helm chart
         run: |
           COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          echo "Updating tag in values.yaml"
           sed -i "s/tag: .*/tag: \"$COMMIT_SHA\"/" helm-gke-deployment/simple-deployment/values.yaml
+
+      - name: Verify changes
+        run: |
+          COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          echo "Changes in values.yaml:"
+          git diff helm-gke-deployment/simple-deployment/values.yaml
 
       - name: Commit and push changes to a new branch
         run: |
