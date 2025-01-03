@@ -25,19 +25,14 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
        
-      - name: Extracting commit SHA 
-        run: |
-          COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
-          echo "Commit SHA: ${{ env.COMMIT_SHA }}"
-
-
       - name: Build and Push action
         uses: docker/build-push-action@v6
+          COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
         with:
           context: ./cicd-python-app/
           file: ./cicd-python-app/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/my-fastapi-image-1:${{ env.COMMIT_SHA }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/my-fastapi-image-1:${COMMIT_SHA }
 
   update-newtag-in-helm-chart:
       runs-on: ubuntu-latest
@@ -51,7 +46,8 @@ jobs:
 
       - name: Update tag in Helm chart
         run: |
-          sed -i 's/tag: .*/tag: "${{ env.COMMIT_SHA }}"/' helm-gke-deployment/simple-deployment/values.yaml
+          COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          sed -i 's/tag: .*/tag: \"$COMMIT_SHA\"/' helm-gke-deployment/simple-deployment/values.yaml
 
       - name: Commit and push changes
         run: |
