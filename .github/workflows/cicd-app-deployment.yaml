@@ -49,7 +49,6 @@ jobs:
         run: |
           git config --global user.email "kumarmnitesh@gmail.com"
           git config --global user.name "niteshkumarm287"
-          git add helm-gke-deployment\simple-deployment\values.yaml
+          git add helm-gke-deployment/simple-deployment/values.yaml
           git commit -m "Update tag in Helm chart"
           git push
-          
