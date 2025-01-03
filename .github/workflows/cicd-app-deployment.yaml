@@ -52,3 +52,4 @@ jobs:
           git add helm-gke-deployment\simple-deployment\values.yaml
           git commit -m "Update tag in Helm chart"
           git push
+          
