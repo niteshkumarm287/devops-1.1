@@ -22,13 +22,20 @@ jobs:
         with:
           workload_identity_provider: "projects/1091294306406/locations/global/workloadIdentityPools/github-gha/providers/github"
           service_account: "gha-sa@nitesh-gcp-444718.iam.gserviceaccount.com"
+          create_credentials_file: true
+
+      - name: Set Docker Auth for Artifact Registry
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
       - name: Install Helm
         run: curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
-      - name: Configure Docker for Artifact Registry
-        run: gcloud auth configure-docker
-
       - name: Package Helm Chart
         run: |
-          gcloud artifacts repositories list --project=nitesh-gcp-444718
+          cd ./helm-gke-deployment/simple-deployment
+          helm package .
+          ls -l
+
+      - name: Push Helm Chart to Artifact Registry
+        run: |
+          helm push ./helm-gke-deployment/simple-deployment/simple-deployment-*.tgz oci://us-central1-docker.pkg.dev/nitesh-gcp-444718/simple-application
