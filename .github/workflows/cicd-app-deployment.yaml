@@ -50,14 +50,14 @@ jobs:
           COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
           sed -i "s/tag: .*/tag: \"$COMMIT_SHA\"/" helm-gke-deployment/simple-deployment/values.yaml
 
-      - name: Commit and push changes
+      - name: Commit and push changes to a new branch
         run: |
           git config --global user.email "kumarmnitesh@gmail.com"
           git config --global user.name "niteshkumarm287"
-          git pull
+          git checkout -b update-helm-tag-${{ github.sha }}  # Create a new branch
           git add helm-gke-deployment/simple-deployment/values.yaml
           git commit -m "Update tag in Helm chart"
-          git push
+          git push origin update-helm-tag-${{ github.sha }}  # Push to the new branch
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
