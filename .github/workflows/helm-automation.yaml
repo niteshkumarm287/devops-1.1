@@ -1,4 +1,4 @@
-name: helm package builder and uploader
+name: Helm Package Builder and Uploader
 
 on:
   push:
@@ -14,30 +14,28 @@ jobs:
       contents: read
 
     steps:
-
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: google cloud login 
+      - name: Google Cloud Login
         uses: google-github-actions/auth@v1
         with:
           workload_identity_provider: "projects/1091294306406/locations/global/workloadIdentityPools/github-gha/providers/github"
           service_account: "gha-sa@nitesh-gcp-444718.iam.gserviceaccount.com"
 
-      - name: helm setup 
+      - name: Install Helm
         run: curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
-      - name: configure helm for Artifact Registry
-        run: |
-          gcloud auth configure-docker
-          helm repo add simple-application oci://us-central1-docker.pkg.dev/nitesh-gcp-444718/simple-application helm-gke-deployment/
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker
 
-      - name: helm package
+      - name: Package Helm Chart
         run: |
-          helm ./chart-directory
-          ls -l 
+          cd ./chart-directory
+          helm package . --destination ../packages
+          ls -l ../packages
 
-      - name: helm push to Artifactory
+      - name: Push Helm Chart to Artifact Registry
         run: |
-          helm push simple-deployment-* oci://us-central1-docker.pkg.dev/nitesh-gcp-444718/simple-application helm-gke-deployment/
-
+          cd ../packages
+          helm push simple-deployment-1.0.0.tgz oci://us-central1-docker.pkg.dev/nitesh-gcp-444718/simple-application
