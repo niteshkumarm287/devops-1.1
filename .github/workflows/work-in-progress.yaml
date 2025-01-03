@@ -1,7 +1,7 @@
 name: Delete GKE Deployment
 
 on:
-  workflow_dispatch:  # This will allow manual trigger of the workflow
+  workflow_dispatch:  # This allows you to manually trigger the workflow
 
 jobs:
   delete-deployment:
@@ -21,6 +21,11 @@ jobs:
           workload_identity_provider: "projects/1091294306406/locations/global/workloadIdentityPools/github-gha/providers/github"
           service_account: "gha-sa@nitesh-gcp-444718.iam.gserviceaccount.com"
 
+      - name: Install gke-gcloud-auth-plugin
+        run: |
+          # Install gke-gcloud-auth-plugin
+          sudo apt-get update && sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
+
       - name: Connect to GKE Cluster and Delete Deployment
         run: |
           # Set environment variables for GKE connection
@@ -35,4 +40,3 @@ jobs:
 
           # Delete the deployment in the specified namespace
           kubectl delete deployment $DEPLOYMENT_NAME -n $NAMESPACE
-
