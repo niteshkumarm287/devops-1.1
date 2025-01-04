@@ -32,6 +32,39 @@ The workflow is triggered when a pull request targeting the `main` branch is **c
 - Commits and pushes the changes to the new branch.
 - Creates a pull request to merge the new branch into `main`.
 
+### **3️⃣ Merge and Approve Changes**
+- The pull request for the updated `deployment.yaml` is reviewed and approved.
+- Once approved, changes are merged into the `main` branch.
+
+### **4️⃣ Deploy with ArgoCD**
+- ArgoCD detects the changes in the `main` branch of the `helm-gke-deployment` repository.
+- Automatically syncs the updated configuration to the target Kubernetes cluster.
+- Deploys the updated application to GKE, ensuring the desired state matches the declared configuration.
+
+
+``` mermaid
+flowchart LR
+    A[🎨 Changes made to cicd-python-app] --> B[📝 PR created]
+    B --> C[✅ PR approved]
+    C --> D[⚙️ GHA workflow triggers]
+    D --> E[📦 Builds and pushes the image to Docker]
+    D --> F[🔄 Creates a PR to update deployment.yaml in helm-gke-deployment]
+    F --> G[✅ PR approved for deployment.yaml update]
+    G --> H[🚀 ArgoCD picks up the changes]
+    H --> I[🌐 Deploys updated application to GKE]
+
+    %% Styling for nodes
+    style A fill:#f9f,stroke:#333,stroke-width:2,color:#000
+    style B fill:#ff9,stroke:#333,stroke-width:2,color:#000
+    style C fill:#9f9,stroke:#333,stroke-width:2,color:#000
+    style D fill:#9cf,stroke:#333,stroke-width:2,color:#000
+    style E fill:#ffcccb,stroke:#333,stroke-width:2,color:#000
+    style F fill:#fdd,stroke:#333,stroke-width:2,color:#000
+    style G fill:#d4ffcc,stroke:#333,stroke-width:2,color:#000
+    style H fill:#d9edf7,stroke:#333,stroke-width:2,color:#000
+    style I fill:#d1ecf1,stroke:#333,stroke-width:2,color:#000
+
+```
 ---
 
 ## ⚙️ Secrets Configuration
