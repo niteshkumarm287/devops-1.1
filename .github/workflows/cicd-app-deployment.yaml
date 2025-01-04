@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
@@ -27,10 +27,12 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Build and Push action
+      - name: Build, Run, and Push Docker Image
         run: |
           COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
           echo "Commit SHA: $COMMIT_SHA"
+          
+          echo "Building Docker Image..."
           docker build -t ${{ secrets.DOCKER_USERNAME }}/my-fastapi-image-1:$COMMIT_SHA cicd-python-app/
           docker push ${{ secrets.DOCKER_USERNAME }}/my-fastapi-image-1:$COMMIT_SHA
 
@@ -45,26 +47,33 @@ jobs:
         with:
           token: ${{ secrets.TOKEN }}
 
-      - name: Update tag in Helm chart
+      - name: Create a new branch
         run: |
           COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
-          echo "Updating tag in values.yaml"
+          NEW_BRANCH="update-helm-tag-$COMMIT_SHA"
+          echo "Creating new branch: $NEW_BRANCH"
+          git checkout -b $NEW_BRANCH
+
+      - name: Update tag in deployment.yaml
+        run: |
+          COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          echo "Updating tag in deployment.yaml"
           sed -i "s/tag: .*/tag: \"$COMMIT_SHA\"/" helm-gke-deployment/simple-deployment/values.yaml
 
-      - name: Commit and push changes to a new branch
+      - name: Commit and push changes
         run: |
           git config --global user.email "kumarmnitesh@gmail.com"
           git config --global user.name "niteshkumarm287"
-          git checkout -b update-helm-tag-${{ github.sha }}  # Create a new branch
           git add helm-gke-deployment/simple-deployment/values.yaml
-          git commit -m "Update tag in Helm chart"
-          git push --set-upstream origin update-helm-tag-${{ github.sha }}  --no-verify  # Push to the new branch
+          git commit -m "Update tag in Helm chart to ${COMMIT_SHA}"
+          git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD) --no-verify
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
-          title: "Update Helm chart tag"
-          body: "This PR updates the Helm chart tag to the new commit SHA."
+          title: "Update Helm chart tag to $COMMIT_SHA"
+          body: "This PR updates the Helm chart tag to the new commit SHA: $COMMIT_SHA."
           base: main
           branch: update-helm-tag-${{ github.sha }}
           token: ${{ secrets.TOKEN }}
+          branch-suffix: timestamp
