@@ -70,4 +70,16 @@ image:
 
 ---
 
+## 🔧 Future Enhancements
+
+Here are some suggested improvements for this workflow:
+
+1. **Vulnerability Scanning**: Integrate tools like Trivy or Snyk to scan Docker images for vulnerabilities before pushing them to Docker Hub.
+2. **Notification System**: Add a step to notify the team (via Slack or email) about the status of the workflow.
+3. **Dynamic Branch Naming**: Improve the branch naming convention to include a timestamp or feature description for better tracking.
+4. **Automated Helm Chart Validation**: Implement a validation step to ensure that the updated Helm chart is valid before creating a pull request.
+5. **Multi-Arch Docker Image Build**: Extend the Docker build process to support multi-architecture images.
+
+---
+
 ## 🚀 Let's automate your deployments!
