@@ -1,5 +1,5 @@
 
-# 🚀 Deploying a Python Flask App on GKE with 🌐 Load Balancer
+# 🚀 Deploying a Python Flask App on GKE with 🌐 Load Balancer .
 
 ## 📝 Overview
 
