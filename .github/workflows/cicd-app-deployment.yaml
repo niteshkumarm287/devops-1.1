@@ -69,8 +69,9 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
-          title: "Update Helm chart tag"
+          title: "Update Helm chart tag to $COMMIT_SHA"
           body: "This PR updates the Helm chart tag to the new commit SHA: $COMMIT_SHA."
           base: main
-          branch: ${{ github.ref_name }}
+          branch: update-helm-tag-${{ github.sha }}
           token: ${{ secrets.TOKEN }}
+          branch-suffix: timestamp
