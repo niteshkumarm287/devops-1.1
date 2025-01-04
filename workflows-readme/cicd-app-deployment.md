@@ -60,6 +60,7 @@ image:
    - Update the Helm chart with the new image tag.
    - Create a pull request to update the `deployment.yaml` file.
 3. Merge the pull request created by the workflow to apply the changes.
+4. ArgoCD detects the change in deployment.yaml and applies the update to the GKE cluster.  
 
 ---
 
@@ -74,11 +75,10 @@ image:
 
 Here are some suggested improvements for this workflow:
 
-1. **Vulnerability Scanning**: Integrate tools like Trivy or Snyk to scan Docker images for vulnerabilities before pushing them to Docker Hub.
-2. **Notification System**: Add a step to notify the team (via Slack or email) about the status of the workflow.
-3. **Dynamic Branch Naming**: Improve the branch naming convention to include a timestamp or feature description for better tracking.
-4. **Automated Helm Chart Validation**: Implement a validation step to ensure that the updated Helm chart is valid before creating a pull request.
-5. **Multi-Arch Docker Image Build**: Extend the Docker build process to support multi-architecture images.
+- 🔍 **Integrate vulnerability scanning** before building the Docker image.
+- ✅ **Add automated testing** to ensure the Docker image is functional before pushing.
+- 📊 **Add resource usage monitoring** during the build process to optimize performance.
+- 🚦 **Add notifications** to alert the team when a pull request is created or merged.
 
 ---
 
