@@ -36,7 +36,7 @@ jobs:
           echo "Running Docker Container..."
           docker run -d --name test_container ${{ secrets.DOCKER_USERNAME }}/simple_python_app:v1
           sleep 5
-          curl -f http://localhost:8080/health || {
+          docker exec test_container curl -f http://0.0.0.0:8080 || {
             echo "Health check failed. Exiting.";
             docker logs test_container;
             docker stop test_container;
@@ -44,8 +44,7 @@ jobs:
           }
           docker stop test_container
           echo "Smoke test passed successfully."
-
-
+      
       - name: Push Docker Image
         run: |
           echo "Pushing Docker Image..."
