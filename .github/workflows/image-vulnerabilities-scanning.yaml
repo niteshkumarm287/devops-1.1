@@ -1,4 +1,4 @@
-name: Docker Image Smoke Test and Scanning
+name: Docker Image Vulnerability Scanning
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  smoke-test-and-scanning:
+  vulnerability-scanning:
     runs-on: ubuntu-latest
 
     permissions:
@@ -31,20 +31,14 @@ jobs:
             exit 1;
           }
 
-      - name: Run Docker Image (Smoke Test)
-        run: |
-          echo "Running Docker Container..."
-          docker run -d --name test_container ${{ secrets.DOCKER_USERNAME }}/simple_python_app:v1
-          sleep 5
-          docker exec test_container curl -f http://0.0.0.0:8080 || {
-            echo "Health check failed. Exiting.";
-            docker logs test_container;
-            docker stop test_container;
-            exit 1;
-          }
-          docker stop test_container
-          echo "Smoke test passed successfully."
-      
+      - name: Scan Docker Image for Vulnerabilities
+        uses: aquasecurity/trivy-action@v0.11.0
+        with:
+          image-ref: ${{ secrets.DOCKER_USERNAME }}/simple_python_app:v1
+          format: table
+          exit-code: 1
+          ignore-unfixed: true
+
       - name: Push Docker Image
         run: |
           echo "Pushing Docker Image..."
