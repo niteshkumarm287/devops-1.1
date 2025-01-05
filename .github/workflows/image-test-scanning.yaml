@@ -34,11 +34,17 @@ jobs:
       - name: Run Docker Image (Smoke Test)
         run: |
           echo "Running Docker Container..."
-          docker run --rm ${{ secrets.DOCKER_USERNAME }}/simple_python_app:v1 || {
-            echo "Docker container failed to run. Exiting without pushing image.";
+          docker run -d --name test_container ${{ secrets.DOCKER_USERNAME }}/simple_python_app:v1
+          sleep 5
+          curl -f http://localhost:8080/health || {
+            echo "Health check failed. Exiting.";
+            docker logs test_container;
+            docker stop test_container;
             exit 1;
           }
+          docker stop test_container
           echo "Smoke test passed successfully."
+
 
       - name: Push Docker Image
         run: |
