@@ -27,7 +27,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Build, Run, and Push Docker Image
+      - name: Build and Push Docker Image
         run: |
           COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
           echo "Commit SHA: $COMMIT_SHA"
