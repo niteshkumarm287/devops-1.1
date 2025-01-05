@@ -32,7 +32,7 @@ jobs:
           }
 
       - name: Scan Docker Image for Vulnerabilities
-        uses: aquasecurity/trivy-action@v0.11.0
+        uses: aquasecurity/trivy-action@master
         with:
           image-ref: ${{ secrets.DOCKER_USERNAME }}/simple_python_app:v1
           format: table
