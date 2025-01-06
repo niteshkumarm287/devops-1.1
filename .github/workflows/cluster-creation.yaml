@@ -39,6 +39,10 @@ jobs:
           sudo apt-get upgrade kubectl -y
           kubectl version --client
 
+      - name: Install GKE Authentication Plugin
+        run: |
+          gcloud components install gke-gcloud-auth-plugin -q
+          
       - name: Connect to cluster
         run: |
           gcloud container clusters get-credentials gke-cluster --region us-central1 --project nitesh-gcp-444718
