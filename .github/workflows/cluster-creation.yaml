@@ -41,18 +41,12 @@ jobs:
 
       - name: Install GKE Authentication Plugin (gke-gcloud-auth-plugin)
         run: |
-          # Update the components and attempt plugin installation
-          gcloud components update
-          gcloud components install gke-gcloud-auth-plugin -q
-          
-      - name: Verify Plugin Installation
-        run: |
-          # Verify if the plugin is installed
-          gcloud components list | grep gke-gcloud-auth-plugin || echo "gke-gcloud-auth-plugin not installed"
+          # Install the gke-gcloud-auth-plugin from the appropriate package
+          sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin -y || echo "Plugin already installed"
           
       - name: Connect to cluster
         run: |
-          # Ensure the plugin is active and try to connect
+          # Ensure gcloud CLI is configured and authenticate using the plugin
           gcloud container clusters get-credentials gke-cluster --region us-central1 --project nitesh-gcp-444718
 
       - name: Install ArgoCD
