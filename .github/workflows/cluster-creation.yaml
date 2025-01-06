@@ -66,4 +66,7 @@ jobs:
       - name: Test
         shell: bash
         run: |
+          sudo apt-get install google-cloud-sdk -y
+          gcloud components update
+          gcloud components install gke-gcloud-auth-plugin -q
           kubectl get pods -n default
