@@ -45,15 +45,29 @@ jobs:
           location: us-central1
           project: nitesh-gcp-444718
 
-      - name: created a namespace for argocd    
+      - name: Check and create namespace for ArgoCD
         run: |
-          kubectl create namespace argocd
-          echo "namespace created"
-
-      - name: Install argocd
+          if kubectl get namespace argocd; then
+            echo "Namespace 'argocd' already exists, skipping creation."
+          else
+            kubectl create namespace argocd
+            echo "Namespace 'argocd' created."
+          fi
+      
+      - name: Check and install ArgoCD
         run: |
-          kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+          if kubectl get deployments -n argocd | grep -q argocd-server; then
+            echo "ArgoCD is already installed, skipping installation."
+          else
+            kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+            echo "ArgoCD installed."
+          fi
+      
 
       - name: Verify argocd installation
         run: |
           kubectl get pods -n argocd 
+
+      - name: Expose argocd service via load balancer
+        run: |
+          kubectl apply -f ./deployment-via-agrocd/service.yaml -n argocd
