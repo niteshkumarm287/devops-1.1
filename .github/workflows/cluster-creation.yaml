@@ -39,14 +39,14 @@ jobs:
           sudo apt-get upgrade kubectl -y
           kubectl version --client
 
-      - name: Install GKE Authentication Plugin (Correct Binary)
-        run: |
-          # Ensure gcloud SDK is up to date
-          sudo apt-get update
-          sudo apt-get install google-cloud-sdk -y
-          # Reinstall the GKE auth plugin
-          gcloud components update
-          gcloud components install gke-gcloud-auth-plugin -q
+      # - name: Install GKE Authentication Plugin (Correct Binary)
+      #   run: |
+      #     # Ensure gcloud SDK is up to date
+      #     sudo apt-get update
+      #     sudo apt-get install google-cloud-sdk -y
+      #     # Reinstall the GKE auth plugin
+      #     gcloud components update
+      #     gcloud components install gke-gcloud-auth-plugin -q
       
 
       - name: Connect to cluster
@@ -64,5 +64,6 @@ jobs:
       #     kubectl get pods -n argocd
 
       - name: Test
+        shell: bash
         run: |
           kubectl get pods -n default
