@@ -1,4 +1,4 @@
-name: cluster create automation
+name: Cluster Create Automation
 
 on:
   push:
@@ -24,36 +24,30 @@ jobs:
           service_account: "gha-sa@nitesh-gcp-444718.iam.gserviceaccount.com"
           create_credentials_file: true 
 
-      - name: create cluster
+      - name: Create cluster
         run: |
-          gcloud container clusters create gke-cluster --region=us-central1 --num-nodes=2 --disk-size=10 || echo "cluster already exists"
+          gcloud container clusters create gke-cluster --region=us-central1 --num-nodes=2 --disk-size=10 || echo "Cluster already exists"
           
-
-      - name: verify cluster is created
+      - name: Verify cluster is created
         run: |
           gcloud container clusters list 
 
-      - name: install kubectl plugins
+      - name: Install kubectl
         run: |
           sudo apt-get update
           sudo apt-get install kubectl -y
           sudo apt-get upgrade kubectl -y
           kubectl version --client
-          gcloud components install kubectl
 
-      - name: connect  to cluster
+      - name: Connect to cluster
         run: |
           gcloud container clusters get-credentials gke-cluster --region us-central1 --project nitesh-gcp-444718
 
-      - name: Install argocd
+      - name: Install ArgoCD
         run: |
           kubectl create namespace argocd
           kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
-      - name: verify argocd installation
+      - name: Verify ArgoCD installation
         run: |
           kubectl get pods -n argocd
-
-
-
-
