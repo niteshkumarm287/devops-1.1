@@ -45,6 +45,11 @@ jobs:
           location: us-central1
           project: nitesh-gcp-444718
 
-      - name: Testing    
+      - name: Install argocd    
         run: 
-          kubectl get pods -n default
+          kubectl create namespace argocd
+          kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+      - name: Verify argocd installation
+        run: |
+          kubectl get pods -n argocd 
