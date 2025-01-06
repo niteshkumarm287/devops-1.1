@@ -42,7 +42,7 @@ jobs:
         uses: google-github-actions/get-gke-credentials@v1 
         with:
           cluster_name: gke-cluster
-          region: us-central1
+          location: us-central1
           project: nitesh-gcp-444718
 
       - name: Testing    
