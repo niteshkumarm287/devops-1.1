@@ -1,0 +1,36 @@
+name: cluster create automation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  cluster-create-automation:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+  
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Google Cloud Login
+        uses: google-github-actions/auth@v1
+        with:
+          workload_identity_provider: "projects/1091294306406/locations/global/workloadIdentityPools/github-gha/providers/github"
+          service_account: "gha-sa@nitesh-gcp-444718.iam.gserviceaccount.com"
+          create_credentials_file: true 
+
+      - name: create cluster
+        run: |
+          gcloud container clusters create gke-cluster --region=us-central1
+
+      - name: verify cluster is created
+        run: |
+          gcloud container clusters list 
+
+
+
