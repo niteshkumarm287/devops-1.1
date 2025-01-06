@@ -45,8 +45,11 @@ jobs:
           
       - name: Connect to cluster
         run: |
-          gcloud container clusters get-credentials gke-cluster --region us-central1 --project nitesh-gcp-444718
-
+          curl -LO https://dl.google.com/cloudsdk/release/google-cloud-sdk.tar.gz
+          tar -xvf google-cloud-sdk.tar.gz
+          ./google-cloud-sdk/install.sh --usage-reporting false --path-update false --installation-type "user"
+          ./google-cloud-sdk/bin/gcloud components install gke-gcloud-auth-plugin -q
+          
       - name: Install ArgoCD
         run: |
           kubectl create namespace argocd
