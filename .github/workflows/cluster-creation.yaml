@@ -18,11 +18,11 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Google Cloud Login
-        uses: google-github-actions/auth@v1
+        uses: google-github-actions/auth@v2.1.0
         with:
           workload_identity_provider: "projects/1091294306406/locations/global/workloadIdentityPools/github-gha/providers/github"
           service_account: "gha-sa@nitesh-gcp-444718.iam.gserviceaccount.com"
-          create_credentials_file: true 
+          token_format: access_token 
 
       - name: Create cluster
         run: |
@@ -38,29 +38,13 @@ jobs:
           gcloud container clusters get-credentials gke-cluster --region us-central1 --project nitesh-gcp-444718
           echo "connected to cluster"
 
-      - name: Install kubectl
-        run: |
-          sudo apt-get update
-          sudo apt-get install kubectl -y
-          sudo apt-get upgrade kubectl -y
-          kubectl version --client
-          echo "installed kubectl"
+      - name: Get cluster credentials 
+        uses: google-github-actions/get-gke-credentials@v1 
+        with:
+          cluster_name: gke-cluster
+          region: us-central1
+          project: nitesh-gcp-444718
 
-          echo "installion for gcloud started"
-          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-          sudo apt-get -y install apt-transport-https ca-certificates gnupg
-          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-          sudo apt update
-          sudo apt-get install -y google-cloud-sdk
-
-          echo "installed gcloud as well"
-
-
-      # - name: Install ArgoCD
-      #   run: |
-      #     kubectl create namespace argocd
-      #     kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-
-      - name: Verify ArgoCD installation
-        run: |
+      - name: Testing    
+        run: 
           kubectl get pods -n default
