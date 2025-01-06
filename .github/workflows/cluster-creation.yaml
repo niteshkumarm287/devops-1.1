@@ -45,10 +45,12 @@ jobs:
           
       - name: Connect to cluster
         run: |
-          curl -LO https://dl.google.com/cloudsdk/release/google-cloud-sdk.tar.gz
-          tar -xvf google-cloud-sdk.tar.gz
-          ./google-cloud-sdk/install.sh --usage-reporting false --path-update false --installation-type "user"
-          ./google-cloud-sdk/bin/gcloud components install gke-gcloud-auth-plugin -q
+          # Install Google Cloud SDK
+          curl -sSL https://sdk.cloud.google.com | bash
+          # Restart shell to make gcloud available
+          source "$HOME/google-cloud-sdk/path.bash.inc"
+          # Install GKE Authentication Plugin
+          gcloud components install gke-gcloud-auth-plugin -q
           
       - name: Install ArgoCD
         run: |
