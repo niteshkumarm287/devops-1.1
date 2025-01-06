@@ -32,27 +32,18 @@ jobs:
         run: |
           gcloud container clusters list 
 
-      - name: Install kubectl
-        run: |
-          sudo apt-get update
-          sudo apt-get install kubectl -y
-          sudo apt-get upgrade kubectl -y
-          kubectl version --client
-
-      # - name: Install GKE Authentication Plugin (Correct Binary)
+      # - name: Install kubectl
       #   run: |
-      #     # Ensure gcloud SDK is up to date
       #     sudo apt-get update
-      #     sudo apt-get install google-cloud-sdk -y
-      #     # Reinstall the GKE auth plugin
-      #     gcloud components update
-      #     gcloud components install gke-gcloud-auth-plugin -q
-      
+      #     sudo apt-get install kubectl -y
+      #     sudo apt-get upgrade kubectl -y
+      #     kubectl version --client
 
       - name: Connect to cluster
         run: |
           # Ensure gcloud CLI is configured and authenticate using the plugin
           gcloud container clusters get-credentials gke-cluster --region us-central1 --project nitesh-gcp-444718
+          echo "connected to cluster"
 
       # - name: Install ArgoCD
       #   run: |
@@ -62,11 +53,3 @@ jobs:
       # - name: Verify ArgoCD installation
       #   run: |
       #     kubectl get pods -n argocd
-
-      - name: Test
-        shell: bash
-        run: |
-          sudo apt-get install google-cloud-sdk -y
-          gcloud components update
-          gcloud components install gke-gcloud-auth-plugin -q
-          kubectl get pods -n default
