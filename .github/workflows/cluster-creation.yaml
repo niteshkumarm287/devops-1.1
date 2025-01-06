@@ -33,6 +33,11 @@ jobs:
         run: |
           gcloud container clusters list 
 
+      - name: install kubectl plugins
+        run: |
+          gcloud components install kubectl
+
+
       - name: connect  to cluster
         run: |
           gcloud container clusters get-credentials gke-cluster --region us-central1 --project nitesh-gcp-444718
