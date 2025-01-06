@@ -70,4 +70,6 @@ jobs:
 
       - name: Expose argocd service via load balancer
         run: |
-          ls -ltr
+          cd deployment-via-argocd
+          kubectl apply -f service.yaml -n argocd
+          kubectl get service -n argocd
