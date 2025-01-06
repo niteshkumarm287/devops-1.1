@@ -46,7 +46,7 @@ jobs:
           project: nitesh-gcp-444718
 
       - name: created a namespace for argocd    
-        run: 
+        run: |
           kubectl create namespace argocd
           echo "namespace created"
 
