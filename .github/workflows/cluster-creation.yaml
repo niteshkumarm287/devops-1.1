@@ -36,6 +36,8 @@ jobs:
       - name: install kubectl plugins
         run: |
           sudo apt-get install kubectl
+          gcloud components install kubectl
+          kubectl version --client
 
 
       - name: connect  to cluster
