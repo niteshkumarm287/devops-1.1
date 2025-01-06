@@ -41,8 +41,19 @@ jobs:
 
       - name: Install GKE Authentication Plugin (gke-gcloud-auth-plugin)
         run: |
-          # Download the gke-gcloud-auth-plugin manually
-          curl -sSL https://github.com/GoogleCloudPlatform/k8s-container-engine-samples/releases/download/v0.0.5/gke-gcloud-auth-plugin-linux-amd64 -o /usr/local/bin/gke-gcloud-auth-plugin
+          # Determine system architecture (amd64 or arm64)
+          ARCH=$(uname -m)
+          if [ "$ARCH" == "x86_64" ]; then
+            ARCH="amd64"
+          elif [ "$ARCH" == "aarch64" ]; then
+            ARCH="arm64"
+          else
+            echo "Unsupported architecture: $ARCH"
+            exit 1
+          fi
+          
+          # Download the correct plugin for the architecture
+          curl -sSL https://github.com/GoogleCloudPlatform/k8s-container-engine-samples/releases/download/v0.0.5/gke-gcloud-auth-plugin-linux-$ARCH -o /usr/local/bin/gke-gcloud-auth-plugin
           sudo chmod +x /usr/local/bin/gke-gcloud-auth-plugin
           echo "gke-gcloud-auth-plugin installed successfully"
 
