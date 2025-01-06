@@ -41,7 +41,7 @@ jobs:
 
       - name: Install GKE Authentication Plugin
         run: |
-          gcloud components install gke-gcloud-auth-plugin -q
+          sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
           
       - name: Connect to cluster
         run: |
