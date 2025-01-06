@@ -62,11 +62,15 @@ jobs:
           # Ensure gcloud CLI is configured and authenticate using the plugin
           gcloud container clusters get-credentials gke-cluster --region us-central1 --project nitesh-gcp-444718
 
-      - name: Install ArgoCD
-        run: |
-          kubectl create namespace argocd
-          kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+      # - name: Install ArgoCD
+      #   run: |
+      #     kubectl create namespace argocd
+      #     kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
-      - name: Verify ArgoCD installation
+      # - name: Verify ArgoCD installation
+      #   run: |
+      #     kubectl get pods -n argocd
+
+      - name: Test
         run: |
-          kubectl get pods -n argocd
+          kubectl get pods -n default
