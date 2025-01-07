@@ -1,26 +1,27 @@
 apiVersion: apps/v1 
-kind: {{ .Values.kind}}
+kind: {{ .Values.deployment.kind}}
 metadata: 
-  name: {{ .Values.metadata.name }}
+  name: {{ .Values.deployment.metadata.name }}
   labels:
-    app:{{ .Values.metadata.labels.app }}
+    app:{{ .Values.deployment.metadata.labels.app }}
 spec:
-  replicas: {{ .Values.spec.replicas }}
+  replicas: {{ .Values.deployment.spec.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.metadata.labels.app }}
+      app: {{ .Values.deployment.metadata.labels.app }}
   template:
     metadata:
       labels:
-        app: {{ .Values.metadata.labels.app }}
+        app: {{ .Values.deployment.metadata.labels.app }}
     spec:
       containers:
-      - name: {{ index .Values.spec.containers 0 "name" }}
-        image:  {{ index .Values.spec.containers 0 "image" }}:{{ index .Values.spec.containers 0 "tag" }}
+      - name: {{ index .Values.deployment.spec.containers 0 "name" }}
+        image:  {{ index .Values.deployment.spec.containers 0 "image" }} 
+        tag: {{ index .Values.deployment.spec.containers 0 "tag" }}
         volumeMounts:
         - mountPath: /data
-          name: {{  index .Values.spec.containers 0 "volumeMounts" 0 "name" }}
+          name: {{  index .Values.deployment.spec.containers 0 "volumeMounts" 0 "name" }}
       volumes:
-      - name: {{  index .Values.spec.containers 0 "volumeMounts" 0 "name" }}
+      - name: {{  index .Values.deployment.spec.containers 0 "volumeMounts" 0 "name" }}
         persistentVolumeClaim:
-          claimName: {{ .Values.spec.volumes.persistentVolumeClaim.claimName }}
+          claimName: {{ index .Values.deployment.spec.volumes 0 "persistentVolumeClaim" "claimName" }}
