@@ -1,16 +1,45 @@
-kind: Deployment 
-name: my-deployment
-labels:
-  app: my-deployment
-spec:
-  replicas: 2
-  containers:
-  - name: my-container
-    image: nginx:latest
-    volumeMounts:
-    - mountPath: /data
-      name: data
-  volumes:
-  - name: data
-    persistentVolumeClaim:
-      claimName: demo-pvc
+deployment:
+  kind: Deployment 
+  metadata:
+    name: my-deployment
+    labels:
+      app: my-deployment
+  spec:
+    replicas: 2
+    containers:
+    - name: my-container
+      image: nginx
+      tag: latest
+      volumeMounts:
+      - mountPath: /data
+        name: data
+    volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: demo-pvc
+
+persistentVolume: 
+  kind: persistentVolume
+  metadata:
+    name: demo-pv
+  spec:
+    accessModes:
+      - ReadWriteOnce
+    capacity:
+      storage: 10mi
+    storageClassName: standard
+    hostPath:
+      path: /tmp/demo-pv
+
+persistentVolumeClaim:
+  kind: PersistentVolumeClaim
+  metadata:
+    name: demo-pvc
+  spec:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 10mi
+    storageClassName: standard
+    volumeName: demo-pv   

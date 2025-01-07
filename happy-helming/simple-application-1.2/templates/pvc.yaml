@@ -1,12 +1,12 @@
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: {{ .Values.persistentVolumeClaim.kind }}
 metadata:
-  name: demo-pvc
+  name: {{ .Values.persistentVolumeClaim.name }}
 spec:
   accessModes:
-    - ReadWriteOnce
+    - {{ index .Values.persistentVolumeClaim.spec.accessModes 0 }}
   resources:
     requests:
-      storage: 10Mi
-  storageClassName: standard
-  volumeName: demo-pv
+      storage: {{ .Values.persistentVolumeClaim.spec.resources.requests.storage }}
+  storageClassName: {{ .Values.persistentVolumeClaim.spec.storageClassName }}
+  volumeName: {{ .Values.persistentVolumeClaim.spec.volumeName }}

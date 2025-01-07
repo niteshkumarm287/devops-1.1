@@ -1,12 +1,12 @@
 apiVersion: v1
-kind: {{ .Values.kind }}
+kind: {{ .Values.persistentVolume.kind }}
 metadata:
-  name: {{ .Values.metadata.name }}
+  name: {{ .Values.persistentVolume.metadata.name }}
 spec:
   accessModes:
-    - {{ .Values.spec.accessModes 0 }}
+    - {{ .Values.persistentVolume.spec.accessModes | first }}
   capacity:
-    storage: {{ .Values.spec.capacity.storage }}
+    storage: {{ .Values.persistentVolume.spec.capacity.storage }}
   storageClassName: standard
   hostPath:
-    path: {{ .Values.spec.hostPath.path }}
+    path: {{ .Values.persistentVolume.spec.hostPath.path }}
