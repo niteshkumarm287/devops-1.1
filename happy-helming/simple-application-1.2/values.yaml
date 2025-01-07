@@ -1,0 +1,16 @@
+kind: Deployment 
+name: my-deployment
+labels:
+  app: my-deployment
+spec:
+  replicas: 2
+  containers:
+  - name: my-container
+    image: nginx:latest
+    volumeMounts:
+    - mountPath: /data
+      name: data
+  volumes:
+  - name: data
+    persistentVolumeClaim:
+      claimName: demo-pvc
