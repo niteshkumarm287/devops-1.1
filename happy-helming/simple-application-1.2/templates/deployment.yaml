@@ -3,16 +3,16 @@ kind: {{ .Values.deployment.kind}}
 metadata: 
   name: {{ .Values.deployment.metadata.name }}
   labels:
-    app:{{ .Values.deployment.metadata.labels.app }}
+    app: {{ .Values.deployment.metadata.name }}
 spec:
   replicas: {{ .Values.deployment.spec.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.deployment.metadata.labels.app }}
+      app: {{ .Values.deployment.metadata.name }}
   template:
     metadata:
       labels:
-        app: {{ .Values.deployment.metadata.labels.app }}
+        app: {{ .Values.deployment.metadata.name }}
     spec:
       containers:
       - name: {{ index .Values.deployment.spec.containers 0 "name" }}
