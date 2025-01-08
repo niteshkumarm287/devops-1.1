@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   cluster-create-automation:
@@ -73,4 +74,4 @@ jobs:
       #     cd deployment-via-argocd
       #     kubectl apply -f service.yaml -n argocd
       #     kubectl get service -n argocd 
-      # 
+      
