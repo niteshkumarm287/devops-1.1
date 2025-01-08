@@ -1,9 +1,7 @@
 deployment:
-  kind: Deployment 
+  kind: Deployment
   metadata:
     name: my-deployment
-    labels:
-      app: my-deployment
   spec:
     replicas: 2
     containers:
@@ -18,15 +16,17 @@ deployment:
       persistentVolumeClaim:
         claimName: demo-pvc
 
-persistentVolume: 
-  kind: persistentVolume
+persistentVolume:
+  kind: PersistentVolume
   metadata:
     name: demo-pv
+    labels:
+      app: my-deployment  # Correct map
   spec:
     accessModes:
       - ReadWriteOnce
     capacity:
-      storage: 10mi
+      storage: 10Mi
     storageClassName: standard
     hostPath:
       path: /tmp/demo-pv
@@ -35,11 +35,13 @@ persistentVolumeClaim:
   kind: PersistentVolumeClaim
   metadata:
     name: demo-pvc
+    labels:
+      app: my-deployment  # Correct map
   spec:
     accessModes:
       - ReadWriteOnce
     resources:
       requests:
-        storage: 10mi
+        storage: 10Mi
     storageClassName: standard
-    volumeName: demo-pv   
+    volumeName: demo-pv

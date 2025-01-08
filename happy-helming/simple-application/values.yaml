@@ -1,5 +1,8 @@
 kind: "Deployment"
-metadata: "pvc-pod"
-containers:
-  - image: "nginx"
-    tag: "latest"
+metadata: 
+  name: "pvc-pod"
+spec:
+  replicas: 1
+  containers:
+    - image: "nginx"
+      tag: "latest"
