@@ -45,31 +45,31 @@ jobs:
           location: us-central1
           project: nitesh-gcp-444718
 
-      - name: Check and create namespace for ArgoCD
-        run: |
-          if kubectl get namespace argocd; then
-            echo "Namespace 'argocd' already exists, skipping creation."
-          else
-            kubectl create namespace argocd
-            echo "Namespace 'argocd' created."
-          fi
+      # - name: Check and create namespace for ArgoCD
+      #   run: |
+      #     if kubectl get namespace argocd; then
+      #       echo "Namespace 'argocd' already exists, skipping creation."
+      #     else
+      #       kubectl create namespace argocd
+      #       echo "Namespace 'argocd' created."
+      #     fi
       
-      - name: Check and install ArgoCD
-        run: |
-          if kubectl get deployments -n argocd | grep -q argocd-server; then
-            echo "ArgoCD is already installed, skipping installation."
-          else
-            kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-            echo "ArgoCD installed."
-          fi
+      # - name: Check and install ArgoCD
+      #   run: |
+      #     if kubectl get deployments -n argocd | grep -q argocd-server; then
+      #       echo "ArgoCD is already installed, skipping installation."
+      #     else
+      #       kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+      #       echo "ArgoCD installed."
+      #     fi
       
 
-      - name: Verify argocd installation
-        run: |
-          kubectl get pods -n argocd 
+      # - name: Verify argocd installation
+      #   run: |
+      #     kubectl get pods -n argocd 
 
-      - name: Expose argocd service via load balancer
-        run: |
-          cd deployment-via-argocd
-          kubectl apply -f service.yaml -n argocd
-          kubectl get service -n argocd
+      # - name: Expose argocd service via load balancer
+      #   run: |
+      #     cd deployment-via-argocd
+      #     kubectl apply -f service.yaml -n argocd
+      #     kubectl get service -n argocd
