@@ -1,0 +1,63 @@
+deployment:
+  kind: Deployment 
+  metadata:
+    name: my-deployment
+    labels:
+      app: my-deployment
+  spec:
+    replicas: 1
+    containers:
+    - name: my-container
+      image: nginx
+      tag: latest 
+      ports:
+      - containerPort: 8080
+
+horizontalPodAutoscaler:
+  kind: horizontalPodAutoscaler
+  metadata:
+    name: my-app-hpa
+  spec:
+    scaleTargetRef:
+      apiVersion: apps/v1
+      kind: deployment
+      name: my-deployment
+    minReplicas: 1
+    maxReplicas: 2
+    metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: 50
+
+ingress: 
+  kind: ingress
+  metadata:
+    name: my-deployment-ingress
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /
+  spec:
+    ingressClassName: nginx
+    rules:
+    - http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: my-deployment
+              port:
+                number: 80
+
+service:
+  kind: Service
+  metadata:
+    name: my-deployment-service
+  spec:
+    selector:
+      app: my-deployment
+    ports:
+      - protocol: TCP
+        port: 80
+        targetPort: 8080
+  
