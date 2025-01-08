@@ -1,0 +1,30 @@
+deployment:
+  kind: Deployment 
+  metadata:
+    name: my-deployment
+    labels:
+      app: my-deployment
+  spec:
+    replicas: 1
+    containers:
+    - name: my-container
+      image: nginx
+      tag: latest 
+      ports:
+      - containerPort: 8080
+
+horizontalPodAutoscaler:
+  metadata:
+    name: my-app-hpa
+  spec:
+    scaleTargetRef:
+      apiVersion: apps/v1
+      kind: deployment
+      name: my-deployment
+    minReplicas: 1
+    maxReplicas: 2
+    metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: 50
