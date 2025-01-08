@@ -72,4 +72,5 @@ jobs:
       #   run: |
       #     cd deployment-via-argocd
       #     kubectl apply -f service.yaml -n argocd
-      #     kubectl get service -n argocd
+      #     kubectl get service -n argocd 
+      # 
