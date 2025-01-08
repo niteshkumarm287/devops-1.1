@@ -1,7 +1,9 @@
 apiVersion: v1
 kind: {{ .Values.persistentVolumeClaim.kind }}
 metadata:
-  name: {{ .Values.persistentVolumeClaim.name }}
+  name: {{ .Values.persistentVolumeClaim.metadata.name }}
+  labels:
+    app: {{ .Values.persistentVolumeClaim.metadata.labels.app  }}
 spec:
   accessModes:
     - {{ index .Values.persistentVolumeClaim.spec.accessModes 0 }}

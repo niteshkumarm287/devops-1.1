@@ -1,5 +1,5 @@
 apiVersion: autoscaling/v2
-kind: {{ .Values.horizontalPodAutoscaler.kind }}
+kind: HorizontalPodAutoscaler
 metadata:
   name: {{ .Values.horizontalPodAutoscaler.metadata.name }}
 spec:
