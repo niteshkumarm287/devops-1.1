@@ -25,13 +25,13 @@ jobs:
           service_account: "gha-sa@nitesh-gcp-444718.iam.gserviceaccount.com"
           token_format: access_token 
 
-      - name: Create cluster
-        run: |
-          gcloud container clusters create gke-cluster --zone=us-central1-a --num-nodes=2 --disk-size=10 || echo "Cluster already exists"
+      # - name: Create cluster
+      #   run: |
+      #     gcloud container clusters create gke-cluster --zone=us-central1-a --num-nodes=2 --disk-size=10 || echo "Cluster already exists"
           
-      - name: Verify cluster is created
-        run: |
-          gcloud container clusters list 
+      # - name: Verify cluster is created
+      #   run: |
+      #     gcloud container clusters list 
 
       - name: Get cluster credentials 
         uses: google-github-actions/get-gke-credentials@v1 
@@ -48,7 +48,12 @@ jobs:
           cd ./happy-helming
           helm package ./end-to-end-deployment
           ls -l
-      
+
+      - name: Installing application via helm
+        run: |
+          # Ensure chart is packaged and ready before installing
+          helm install end-to-end-deployment ./happy-helming/end-to-end-deployment-*.tgz
+
       - name: insall ingress controller
         run: |
           kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
@@ -56,11 +61,6 @@ jobs:
       - name: verify installion 
         run: |
           kubectl get pods -n ingress-nginx
-
-      - name: Installing application via helm
-        run: |
-          # Ensure chart is packaged and ready before installing
-          helm install end-to-end-deployment ./happy-helming/end-to-end-deployment-*.tgz
 
 
 
