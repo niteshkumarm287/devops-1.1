@@ -27,7 +27,7 @@ jobs:
 
       - name: Create cluster
         run: |
-          gcloud container clusters create gke-cluster --region=us-central1 --num-nodes=2 --disk-size=10 || echo "Cluster already exists"
+          gcloud container clusters create gke-cluster --zone=us-central1-a --num-nodes=2 --disk-size=10 || echo "Cluster already exists"
           
       - name: Verify cluster is created
         run: |

@@ -27,11 +27,18 @@ jobs:
 
       - name: Create cluster
         run: |
-          gcloud container clusters create gke-cluster --region=us-central1 --num-nodes=2 --disk-size=10 || echo "Cluster already exists"
+          gcloud container clusters create gke-cluster --zone=us-central1-a --num-nodes=2 --disk-size=10 || echo "Cluster already exists"
           
       - name: Verify cluster is created
         run: |
           gcloud container clusters list 
+
+      - name: Get cluster credentials 
+        uses: google-github-actions/get-gke-credentials@v1 
+        with:
+          cluster_name: gke-cluster
+          location: us-central1
+          project: nitesh-gcp-444718
 
       - name: Install Helm
         run: curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
@@ -41,3 +48,20 @@ jobs:
           cd ./happy-helming
           helm package ./end-to-end-deployment
           ls -l
+      
+      - name: insall ingress controller
+        run: |
+          kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+
+      - name: verify installion 
+        run: |
+          kubectl get pods -n ingress-nginx
+
+      - name: Installing application via helm
+        run: |
+          # Ensure chart is packaged and ready before installing
+          helm install end-to-end-deployment ./happy-helming/end-to-end-deployment-*.tgz
+
+
+
+        
