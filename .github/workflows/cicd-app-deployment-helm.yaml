@@ -26,19 +26,19 @@ jobs:
           service_account: "gha-sa@nitesh-gcp-444718.iam.gserviceaccount.com"
           token_format: access_token 
 
-      # - name: Create cluster
-      #   run: |
-      #     gcloud container clusters create gke-cluster --zone=us-central1-a --num-nodes=2 --disk-size=10 || echo "Cluster already exists"
+      - name: Create cluster
+        run: |
+          gcloud container clusters create gke-cluster --zone=us-central1-a --num-nodes=2 --disk-size=10 || echo "Cluster already exists"
           
-      # - name: Verify cluster is created
-      #   run: |
-      #     gcloud container clusters list 
+      - name: Verify cluster is created
+        run: |
+          gcloud container clusters list 
 
       - name: Get cluster credentials 
         uses: google-github-actions/get-gke-credentials@v1 
         with:
           cluster_name: gke-cluster
-          location: us-central1
+          location: us-central1-a
           project: nitesh-gcp-444718
 
       - name: Install Helm
