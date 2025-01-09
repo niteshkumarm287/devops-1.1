@@ -1,0 +1,2 @@
+kubectl label pod <pod-name> version=v1.1.0 --overwrite
+kubectl annotate pod <pod-name> build-date="2025-01-08" --overwrite
