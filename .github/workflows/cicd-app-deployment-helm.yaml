@@ -53,7 +53,7 @@ jobs:
       - name: Installing application via helm
         run: |
           # Ensure chart is packaged and ready before installing
-          helm upgrade end-to-end-deployment ./happy-helming/end-to-end-deployment-*.tgz
+          helm install end-to-end-deployment ./happy-helming/end-to-end-deployment-*.tgz
 
       - name: insall ingress controller
         run: |
