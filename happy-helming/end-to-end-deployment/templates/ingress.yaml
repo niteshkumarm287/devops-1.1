@@ -7,12 +7,12 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - http:
-      paths:
-      - path: {{ index .Values.ingress.spec.rules 0 "http" "paths" 0 "path" }}
-        pathType: {{ index .Values.ingress.spec.rules 0 "http" "paths" 0 "pathType" }}
-        backend:
-          service:
-            name: {{ .Values.ingress.metadata.name }}
-            port:
-              number: {{ index .Values.ingress.spec.rules 0 "http" "paths" 0 "backend" "service" "port" "number" }}
+    - http:
+        paths:
+          - path: {{ index .Values.ingress.spec.rules 0 "http" "paths" 0 "path" }}
+            pathType: {{ index .Values.ingress.spec.rules 0 "http" "paths" 0 "pathType" }}
+            backend:
+              service:
+                name: {{ .Values.ingress.metadata.name }}-service
+                port:
+                  number: {{ index .Values.ingress.spec.rules 0 "http" "paths" 0 "backend" "service" "port" "number" }}

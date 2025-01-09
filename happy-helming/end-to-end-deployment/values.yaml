@@ -8,32 +8,16 @@ deployment:
     replicas: 1
     containers:
     - name: my-container
-      image: nginx
-      tag: latest 
+      image: nitesh287/my-fastapi-image-1
+      tag: 30a7404 
       ports:
-      - containerPort: 8080
+      - containerPort: 80
 
-horizontalPodAutoscaler:
-  kind: horizontalPodAutoscaler
-  metadata:
-    name: my-app-hpa
-  spec:
-    scaleTargetRef:
-      apiVersion: apps/v1
-      kind: deployment
-      name: my-deployment
-    minReplicas: 1
-    maxReplicas: 2
-    metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        targetAverageUtilization: 50
 
 ingress: 
-  kind: ingress
+  kind: Ingress
   metadata:
-    name: my-deployment-ingress
+    name: my-deployment
     annotations:
       nginx.ingress.kubernetes.io/rewrite-target: /
   spec:
@@ -52,12 +36,12 @@ ingress:
 service:
   kind: Service
   metadata:
-    name: my-deployment-service
+    name: my-deployment
   spec:
     selector:
       app: my-deployment
     ports:
       - protocol: TCP
         port: 80
-        targetPort: 8080
+        targetPort: 80
   
