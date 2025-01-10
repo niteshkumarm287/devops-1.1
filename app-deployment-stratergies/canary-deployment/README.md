@@ -1,11 +1,11 @@
 
-# Canary Deployment with Kubernetes
+# Canary Deployment with Kubernetes 🚀
 
 This repository contains Kubernetes manifests for deploying a canary deployment setup. The deployment includes two versions of an application (v1 and v2), an NGINX ingress controller for traffic splitting, and a service to expose the application.
 
 ---
 
-## **Folder Structure**
+## **Folder Structure** 📂
 
 - `deployment.yaml`: Defines two deployments for the application, one for version `v1` and another for version `v2`.
 - `service.yaml`: Defines a service to expose the deployments.
@@ -13,7 +13,7 @@ This repository contains Kubernetes manifests for deploying a canary deployment 
 
 ---
 
-## **Deployment Overview**
+## **Deployment Overview** 📜
 
 ### **Deployment Files**
 
@@ -42,7 +42,7 @@ This repository contains Kubernetes manifests for deploying a canary deployment 
 
 ---
 
-## **Deployment Steps**
+## **Deployment Steps** 🛠️
 
 ### **Step 1: Apply the Manifests**
 
@@ -85,7 +85,7 @@ This repository contains Kubernetes manifests for deploying a canary deployment 
 
 ---
 
-## **Improvements**
+## **Improvements** 📈
 
 1. **Automated Canary Analysis**
    - Integrate tools like Flagger for advanced traffic shaping and metrics-based canary analysis.
@@ -101,9 +101,8 @@ This repository contains Kubernetes manifests for deploying a canary deployment 
 
 ---
 
-## **Reference Documentation**
+## **Reference Documentation** 📚
 
 - [Kubernetes Documentation](https://kubernetes.io/docs/)
 - [NGINX Ingress Controller Annotations](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/)
 - [Canary Deployments in Kubernetes](https://martinfowler.com/bliki/CanaryRelease.html)
-
