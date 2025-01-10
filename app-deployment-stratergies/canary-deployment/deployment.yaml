@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: canary-deployment-v1
+  labels:
+    app: canary-deployment
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: canary-deployment
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: canary-deployment
+        version: v1
+    spec:
+      containers:
+      - name: my-app
+        image: nitesh287/my-fastapi-image-1:30a7404
+
+        ports:
+        - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: canary-deployment-v2
+  labels:
+    app: canary-deployment
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: canary-deployment
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: canary-deployment
+        version: v2
+    spec:
+      containers:
+      - name: my-app
+        image: nitesh287/fastapi:v1
+        ports:
+        - containerPort: 80
