@@ -7,8 +7,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: "35.188.164.152"
-      http:
+    - http:
         paths:
           - path: {{ index .Values.ingress.spec.rules 0 "http" "paths" 0 "path" }}
             pathType: {{ index .Values.ingress.spec.rules 0 "http" "paths" 0 "pathType" }}
@@ -17,7 +16,3 @@ spec:
                 name: {{ .Values.ingress.metadata.name }}-service
                 port:
                   number: {{ index .Values.ingress.spec.rules 0 "http" "paths" 0 "backend" "service" "port" "number" }}
-  tls:
-    - hosts:
-        - "35.188.164.152"
-      secretName: app-tls-secret
