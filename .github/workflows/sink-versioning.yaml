@@ -17,7 +17,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Installing utility
+      - name: Installing python packages 
         run: pip install google-cloud-logging 
 
       - name: Google Cloud Login
