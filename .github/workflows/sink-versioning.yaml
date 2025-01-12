@@ -1,0 +1,23 @@
+name: Sink versioning
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sink_versioning:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: GCP authentication
+        uses: google-github-actions/auth@v1
+        with:
+          workload_identity_provider: "projects/1091294306406/locations/global/workloadIdentityPools/github-gha/providers/github"
+          service_account: "gha-sa@nitesh-gcp-444718.iam.gserviceaccount.com"
+
+      - name: Run python script
+        run: python ./sink-versioning/test.py
