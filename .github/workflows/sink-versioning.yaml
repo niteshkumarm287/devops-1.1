@@ -17,6 +17,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Installing utility
+        run: pip install google-cloud-logging 
+
       - name: Google Cloud Login
         uses: google-github-actions/auth@v2.1.0
         with:
