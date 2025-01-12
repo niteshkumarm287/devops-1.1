@@ -25,4 +25,4 @@ jobs:
           token_format: access_token 
 
       - name: Run python script
-        run: python /sink-versioning/test.py
+        run: python /sink-versioning/main.py
