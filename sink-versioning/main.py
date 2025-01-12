@@ -24,4 +24,4 @@ def get_sink_filters(project_id, sink_name):
         print("No Exclusion Filters")
 
 # Replace with your project ID and sink name
-get_sink_filters("nitesh-gcp-444718", "test")
+get_sink_filters("nitesh-gcp-444718", "_Required")
