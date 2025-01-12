@@ -22,7 +22,8 @@ jobs:
         with:
           workload_identity_provider: "projects/1091294306406/locations/global/workloadIdentityPools/github-gha/providers/github"
           service_account: "gha-sa@nitesh-gcp-444718.iam.gserviceaccount.com"
-          token_format: access_token 
+          token_format: "access_token"
 
       - name: Run python script
-        run: python /sink-versioning/main.py
+        run: python ./sink-versioning/main.py
+
