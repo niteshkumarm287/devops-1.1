@@ -1,6 +1,0 @@
-Below will fail
-kubectl exec test-pod -- curl unauthorized-pod
-kubectl exec unauthorized-pod -- curl test-pod
-
-below will succeed
-kubectl exec test-pod -- curl test-pod
