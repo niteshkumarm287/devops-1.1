@@ -1,27 +1,43 @@
+import json
 from google.cloud.logging_v2.services.config_service_v2 import ConfigServiceV2Client
-from google.cloud.logging_v2.types import GetSinkRequest
 
-def get_sink_filters(project_id, sink_name):
+def get_all_sink_filters_json(project_id):
+    """
+    Retrieve inclusion and exclusion filters for all sinks in a project and output in JSON format.
+
+    Args:
+        project_id (str): The GCP project ID.
+    """
     # Initialize the client
     client = ConfigServiceV2Client()
 
-    # Create the sink path
-    sink_path = f"projects/{project_id}/sinks/{sink_name}"
+    # List all sinks in the project
+    sinks = client.list_sinks(parent=f"projects/{project_id}")
+    
+    # Prepare data structure for JSON
+    sinks_data = []
 
-    # Create the request with the correct field
-    request = GetSinkRequest(sink_name=sink_path)
+    for sink in sinks:
+        sink_info = {
+            "sink_name": sink.name,
+            "inclusion_filter": sink.filter,
+            "exclusions": []
+        }
 
-    # Fetch the sink details
-    sink = client.get_sink(request=request)
-    print("Inclusion Filter:", sink.filter)
+        # Add exclusion filters if present
+        if sink.exclusions:
+            for exclusion in sink.exclusions:
+                sink_info["exclusions"].append({
+                    "exclusion_name": exclusion.name,
+                    "exclusion_filter": exclusion.filter
+                })
 
-    # Check for exclusion filters
-    if sink.exclusions:
-        for exclusion in sink.exclusions:
-            print("Exclusion Name:", exclusion.name)
-            print("Exclusion Filter:", exclusion.filter)
-    else:
-        print("No Exclusion Filters")
+        # Append sink info to the list
+        sinks_data.append(sink_info)
 
-# Replace with your project ID and sink name
-get_sink_filters("nitesh-gcp-444718", "_Required")
+    # Convert to JSON and print
+    sinks_json = json.dumps(sinks_data, indent=4)
+    print(sinks_json)
+
+# Replace with your project ID
+get_all_sink_filters_json("nitesh-gcp-444718")
