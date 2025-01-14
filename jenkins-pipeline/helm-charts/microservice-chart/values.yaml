@@ -1,0 +1,7 @@
+image:
+  repository: gcr.io/nitesh-gcp-444718/microservice-app
+  tag: latest
+
+service:
+  type: LoadBalancer
+  port: 80
