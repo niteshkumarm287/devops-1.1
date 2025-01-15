@@ -20,22 +20,13 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t gcr.io/$GCP_PROJECT_ID/microservice-app:latest .'
-            }
-        }
-
-        stage('Push Docker Image') {
-            steps {
-                sh 'docker push gcr.io/$GCP_PROJECT_ID/microservice-app:latest'
-            }
-        }
-
         stage('Deploy to GKE') {
             steps {
-                sh 'gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE'
-                sh 'helm upgrade --install microservice ./helm-charts/microservice-chart'
+                script {
+                    echo "Deploying to GKE..."
+                    sh 'gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE'
+                    sh 'helm upgrade --install microservice ./helm-charts/microservice-chart'
+                }
             }
         }
     }
