@@ -41,3 +41,5 @@ def get_all_sink_filters_json(project_id):
 
 # Replace with your project ID
 get_all_sink_filters_json("nitesh-gcp-444718")
+
+# Add the JSON output to a file --> Next step
