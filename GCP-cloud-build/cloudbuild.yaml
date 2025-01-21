@@ -1,25 +1,25 @@
 steps:
   # Step for docker build [CI]
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/$PROJECT_ID/gcpdevops/Docker", "."]
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/gcpdevops:latest", "Docker"]
 
   # Step for docker push [CI]
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/$PROJECT_ID/gcpdevops/Docker"]
+    args: ["push", "gcr.io/$PROJECT_ID/gcpdevops:latest"]
 
   # Step for deploying [CD]
   - name: "gcr.io/cloud-builders/gke-deploy"
     args:
       - run
       - --filename=deployment.yaml
-      - --image=gcr.io/$PROJECT_ID/gcpdevops
+      - --image=gcr.io/$PROJECT_ID/gcpdevops:latest
       - --location=us-central1-c
       - --cluster=devops-cluster
       - --namespace=mynamespace
 
 timeout: "1200s"
 
-# Specify a logs bucket (replace 'your-logs-bucket' with the actual bucket name)
+# Specify a logs bucket
 logsBucket: "gs://cloud-build-demo-2"
 
 # Specify the service account used for Cloud Build
