@@ -20,7 +20,7 @@ steps:
 timeout: "1200s"
 
 # Specify a logs bucket (replace 'your-logs-bucket' with the actual bucket name)
-logsBucket: "gs://terraform-nitesh-1"
+logsBucket: "gs://cloud-build-demo-2"
 
 # Specify the service account used for Cloud Build
 serviceAccount: "gha-sa@nitesh-gcp-444718.iam.gserviceaccount.com"
