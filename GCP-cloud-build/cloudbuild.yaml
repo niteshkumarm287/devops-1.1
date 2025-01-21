@@ -1,11 +1,11 @@
 steps:
   # Step for docker build [CI]
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/$PROJECT_ID/gcpdevops", "."]
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/gcpdevops/Docker", "."]
 
   # Step for docker push [CI]
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/$PROJECT_ID/gcpdevops"]
+    args: ["push", "gcr.io/$PROJECT_ID/gcpdevops/Docker"]
 
   # Step for deploying [CD]
   - name: "gcr.io/cloud-builders/gke-deploy"
