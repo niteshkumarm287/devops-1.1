@@ -1,7 +1,7 @@
 steps:
   # Step for docker build [CI]
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/$PROJECT_ID/gcpdevops:latest", "Docker"]
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/gcpdevops:latest", "GCP-cloud-build/Docker"]
 
   # Step for docker push [CI]
   - name: "gcr.io/cloud-builders/docker"
