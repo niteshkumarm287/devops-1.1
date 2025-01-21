@@ -1,0 +1,16 @@
+steps:
+#Step for docker build [CI]
+- name: "gcr.io/cloud-builders/docker"
+  args: ["build", "-t", "gcr.io./$PROJECT_ID/gcpdevops", "."]
+#Step for docker push [CI]
+- name: "gcr.io/cloud-builders/docker"
+  args: ["push", "gcr.io./$PROJECT_ID/gcpdevops"]
+#Step for deploying [CD]
+- name: "gcr.io/cloud-builders/gke-deploy"
+  args:
+  - run
+  - --filename=deployment.yaml
+  - --image=gcr.io./$PROJECT_ID/gcpdevops
+  - --location=us-central1-c
+  - --cluster=devops-cluster
+  - --namespace=mynamespace
