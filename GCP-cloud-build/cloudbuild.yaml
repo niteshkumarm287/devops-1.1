@@ -1,16 +1,30 @@
 steps:
-#Step for docker build [CI]
-- name: "gcr.io/cloud-builders/docker"
-  args: ["build", "-t", "gcr.io./$PROJECT_ID/gcpdevops", "."]
-#Step for docker push [CI]
-- name: "gcr.io/cloud-builders/docker"
-  args: ["push", "gcr.io./$PROJECT_ID/gcpdevops"]
-#Step for deploying [CD]
-- name: "gcr.io/cloud-builders/gke-deploy"
-  args:
-  - run
-  - --filename=deployment.yaml
-  - --image=gcr.io./$PROJECT_ID/gcpdevops
-  - --location=us-central1-c
-  - --cluster=devops-cluster
-  - --namespace=mynamespace
+  # Step for docker build [CI]
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/gcpdevops", "."]
+
+  # Step for docker push [CI]
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/$PROJECT_ID/gcpdevops"]
+
+  # Step for deploying [CD]
+  - name: "gcr.io/cloud-builders/gke-deploy"
+    args:
+      - run
+      - --filename=deployment.yaml
+      - --image=gcr.io/$PROJECT_ID/gcpdevops
+      - --location=us-central1-c
+      - --cluster=devops-cluster
+      - --namespace=mynamespace
+
+timeout: "1200s"
+
+# Specify a logs bucket (replace 'your-logs-bucket' with the actual bucket name)
+logsBucket: "gs://terraform-nitesh-1"
+
+# Specify the service account used for Cloud Build
+serviceAccount: "gha-sa@nitesh-gcp-444718.iam.gserviceaccount.com"
+
+# Optional: Define default behavior for logs bucket
+options:
+  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
