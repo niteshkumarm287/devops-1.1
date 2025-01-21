@@ -13,8 +13,9 @@ spec:
     metadata:
       labels:
         app: simple-app
-    containers:
-      name: simple-app
-      image: simple-app:latest
-      ports:
-        containerPort: 8080
+    spec:
+      containers:
+        name: simple-app
+        image: simple-app:latest
+        ports:
+          containerPort: 8080
