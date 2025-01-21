@@ -2,8 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: simple-app
-  labels:
-    app: simple-app
+  namespace: mynamespace
 spec:
   replicas: 1
   selector:
@@ -15,7 +14,7 @@ spec:
         app: simple-app
     spec:
       containers:
-        name: simple-app
-        image: simple-app:latest
-        ports:
-          containerPort: 8080
+        - name: simple-app
+          image: gcr.io/nitesh-gcp-444718/gcpdevops:latest
+          ports:
+            - containerPort: 8080
