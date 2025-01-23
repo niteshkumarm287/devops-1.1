@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pvc-pod-deployment
+  labels:
+    app: pvc-pod
+spec:
+  replicas: 2  # Initial number of replicas
+  selector:
+    matchLabels:
+      app: pvc-pod
+  template:
+    metadata:
+      labels:
+        app: pvc-pod
+    spec:
+      containers:
+        - name: pvc-pod-container
+          image: nginx:latest
+          resources:
+            requests:
+              cpu: 100m  # 100 millicores (~10% of a CPU)
+            limits:
+              cpu: 500m  # 500 millicores (~50% of a CPU)
+          volumeMounts:
+            - mountPath: /data
+              name: data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: demo-pvc
