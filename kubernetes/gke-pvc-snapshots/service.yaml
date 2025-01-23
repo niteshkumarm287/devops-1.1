@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pvc-pod-deployment
+spec:
+  type: LoadBalancer # Change to NodePort or ClusterIP if needed
+  selector:
+    app: pvc-pod
+  ports:
+    - port: 80
