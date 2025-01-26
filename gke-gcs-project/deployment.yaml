@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: file-upload-app
+  namespace: my-new-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: file-upload-app
+  template:
+    metadata:
+      labels:
+        app: file-upload-app
+    spec:
+      serviceAccountName: gcs-upload-sa  # Use the new service account
+      containers:
+      - name: file-upload-app
+        image: gcr.io/nitesh-gcp-444718/file-upload-app:latest
+        ports:
+        - containerPort: 8080
