@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         GCP_PROJECT_ID = 'nitesh-gcp-444718'
-        GKE_CLUSTER = 'microservices-cluster'
+        GKE_CLUSTER = 'microservices'
         GKE_ZONE = 'us-central1-c'
     }
 
