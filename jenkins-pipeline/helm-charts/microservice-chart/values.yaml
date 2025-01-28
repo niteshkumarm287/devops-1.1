@@ -1,5 +1,5 @@
 image:
-  repository: gcr.io/nitesh-gcp-444718/microservice-app
+  repository: gcr.io/nitesh-gcp-444718/microservice-app:latest
   tag: latest
 
 service:
